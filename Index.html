@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Jammy!</title>
+  <link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #0c1821;
+      background-image: 
+        radial-gradient(circle at 50% 50%, #1b3a4b 0%, #060a0f 100%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 2px, transparent 2px, transparent 4px);
+      color: #ffffff;
+      font-family: 'Minecraft', monospace, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 650px;
+      width: 100%;
+      background: rgba(16, 37, 66, 0.85);
+      border: 4px solid #48cae4;
+      box-shadow: 0 0 25px rgba(72, 202, 228, 0.4), inset 0 0 15px rgba(0, 0, 0, 0.6);
+      border-radius: 8px;
+      padding: 30px 20px;
+      position: relative;
+    }
+
+    h1 {
+      color: #90e0ef;
+      text-shadow: 3px 3px 0px #03045e;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    /* Minecraft Tulip & Item Display */
+    .decor-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .pixel-art {
+      width: 48px;
+      height: 48px;
+      image-rendering: pixelated;
+    }
+
+    /* Timer Styles */
+    .timer-box {
+      background: #03045e;
+      border: 3px solid #00b4d8;
+      border-radius: 6px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .timer-status {
+      color: #caf0f8;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+
+    .countdown {
+      font-size: 2.2rem;
+      color: #00f5d4;
+      text-shadow: 2px 2px 0px #000;
+      letter-spacing: 2px;
+    }
+
+    /* Funny Timer Messages */
+    .funny-subtext {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: #90e0ef;
+      min-height: 24px;
+    }
+
+    /* Hidden Letter Container */
+    #letter-container {
+      display: none;
+      animation: fadeIn 1s ease-in-out forwards;
+    }
+
+    .letter-card {
+      background: #023e8a;
+      border: 3px solid #90e0ef;
+      padding: 25px;
+      border-radius: 6px;
+      text-align: left;
+      line-height: 1.6;
+      font-size: 0.95rem;
+      color: #f1f9ff;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+      white-space: pre-line;
+      word-wrap: break-word;
+    }
+
+    .btn-reblast {
+      margin-top: 20px;
+      background: #00b4d8;
+      color: #03045e;
+      border: 2px solid #fff;
+      padding: 10px 20px;
+      font-family: 'Minecraft', monospace;
+      font-size: 0.9rem;
+      cursor: pointer;
+      box-shadow: 0 4px 0 #0077b6;
+      transition: all 0.1s;
+    }
+
+    .btn-reblast:active {
+      transform: translateY(4px);
+      box-shadow: 0 0 0 #0077b6;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="decor-row">
+      <svg class="pixel-art" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7 12H9V16H7V12Z" fill="#2d6a4f"/>
+        <path d="M8 9H10V13H8V9Z" fill="#52b788"/>
+        <path d="M5 4H11V6H5V4Z" fill="#00b4d8"/>
+        <path d="M4 6H12V10H4V6Z" fill="#0077b6"/>
+        <path d="M6 10H10V12H6V10Z" fill="#023e8a"/>
+        <path d="M7 2H9V4H7V2Z" fill="#caf0f8"/>
+      </svg>
+      <h1>Happy Birthday Jammy!</h1>
+      <svg class="pixel-art" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7 12H9V16H7V12Z" fill="#2d6a4f"/>
+        <path d="M8 9H10V13H8V9Z" fill="#52b788"/>
+        <path d="M5 4H11V6H5V4Z" fill="#00b4d8"/>
+        <path d="M4 6H12V10H4V6Z" fill="#0077b6"/>
+        <path d="M6 10H10V12H6V10Z" fill="#023e8a"/>
+        <path d="M7 2H9V4H7V2Z" fill="#caf0f8"/>
+      </svg>
+    </div>
+
+    <div id="timer-container" class="timer-box">
+      <div class="timer-status">Decrypting Wembuu's Secret Vault...</div>
+      <div id="countdown" class="countdown">00:07</div>
+      <div id="subtext" class="funny-subtext">Bribing Piglin Brutes with Netherite...</div>
+    </div>
+
+    <div id="letter-container">
+      <div class="letter-card" id="message-text"></div>
+      <button class="btn-reblast" onclick="launchConfetti()">More Confetti! 🎉</button>
+    </div>
+  </div>
+
+  <script>
+    // Confetti Cannon Trigger
+    function launchConfetti() {
+      // Custom blue and white confetti palette
+      var colors = ['#00f5d4', '#00b4d8', '#48cae4', '#ffffff', '#90e0ef'];
+
+      confetti({
+        particleCount: 120,
+        spread: 100,
+        origin: { y: 0.6 },
+        colors: colors
+      });
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 50,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: colors
+        });
+        confetti({
+          particleCount: 50,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: colors
+        });
+      }, 300);
+    }
+
+    // Launch initial confetti right on load
+    window.addEventListener('DOMContentLoaded', () => {
+      launchConfetti();
+    });
+
+    // Funny countdown messages
+    const funnyMessages = [
+      "Bribing Piglin Brutes with Netherite...",
+      "Crafting Blue Tulips for Jammy...",
+      "Searching for Wembuu's secret stash...",
+      "Polishing your Spyglass...",
+      "Fending off Creepers...",
+      "Unlocking ultimate birthday message..."
+    ];
+
+    let timeLeft = 7; // Countdown duration in seconds
+    const countdownEl = document.getElementById('countdown');
+    const subtextEl = document.getElementById('subtext');
+    const timerContainer = document.getElementById('timer-container');
+    const letterContainer = document.getElementById('letter-container');
+
+    const fullMessage = `HAPPY BIRTHDAY JAMMYYYY!!!1!!1!11🤍🤍🔥🔥💯💯🥳🥳🥳
+
+I am genuinely grateful that you entered in my life and i can't thank you so much for being such an amazing bestfriend and girlfriend to me life has been amazing ever since you came into my life and you are  very very special person to me and i wouldn't replace you with anyone or anything, because of you i have met donna and neko who genuinely likes to play and talk with me, and i still can't believe that i can have you as a girlfriend and husband.
+
+I love you very very much dear, i love how you talk, the way you laugh and the little things you do and i genuinely adore you so much man you are very amazing and i will support you with everything in life and ill always be there for you anytime because i would genuinely catch a grenade for you and i would give you my spyglass and i would genuinely save you from someone trying to use your body to destroy the world because i wouldn't let anyone hurt you because i love you very much and i really hope we'll last forever because i really want to grow old with you :>. 
+
+Sincerely, Your wife and boyfriend.
+
+I luv you :3`;
+
+    const timer = setInterval(() => {
+      timeLeft--;
+      countdownEl.innerText = `00:0${timeLeft}`;
+      
+      // Update funny text
+      if (timeLeft > 0) {
+        subtextEl.innerText = funnyMessages[7 - timeLeft - 1] || funnyMessages[0];
+      }
+
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        timerContainer.style.display = 'none';
+        
+        // Show letter and trigger another confetti burst!
+        document.getElementById('message-text').innerText = fullMessage;
+        letterContainer.style.display = 'block';
+        launchConfetti();
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
